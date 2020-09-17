@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Usuario, Perfil, Contato
 
-# Register your models here.
+admin.site.register(Usuario)
+admin.site.register(Perfil)
+admin.site.register(Contato)
