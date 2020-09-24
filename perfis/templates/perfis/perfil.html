@@ -7,9 +7,9 @@
     <body>
         <h1>Detalhes do perfil</h1>
         <p>Nome: {{ perfil.nome }}</p>
-        <p>Email: {{ perfil.email }}</p>
-        <p>Telefone: {{ perfil.telefone }}</p>
-        <p>Nome da empresa: {{ perfil.nome_empresa }}</p>
+        <p>Email: {{ perfil.usuario.email }}</p>
+        <p>Data Nascimento: {{ perfil.usuario.data_nascimento }}</p>
+        <a href={% url 'convidar-perfil' perfil.id %}>Convidar</a>
     </body>
 
 </html>

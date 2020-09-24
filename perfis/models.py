@@ -27,6 +27,9 @@ class Perfil(models.Model):
     nome = models.CharField(max_length=50)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
 
+    def convidar(self, id_convidado):
+        pass
+
     def __str__(self):
         return self.nome
 

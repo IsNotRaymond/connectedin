@@ -1,17 +1,16 @@
 from django.shortcuts import render
-from .models import Perfil
+from .models import Perfil, Usuario
 
 
 def index(request):
-    return render(request, 'perfis/index.html')
+    return render(request, 'perfis/index.html', {'perfis': Perfil.objects.all(), 'usuarios': Usuario})
 
 
 def exibir(request, id_perfil):
-    perfil = Perfil()
-
-    if id_perfil == 1:
-        perfil = Perfil(1, 'Elvis', 'elvis@gmail.com', '99999-9999', 'IFPI')
-    elif id_perfil == 2:
-        perfil = Perfil(2, 'Lucas', 'lucas@gmail.com', '98888-8888', 'UFPI')
+    perfil = Perfil.objects.get(id=id_perfil)
 
     return render(request, 'perfis/perfil.html', {'perfil': perfil})
+
+
+def convidar(request, id_perfil):
+    pass
