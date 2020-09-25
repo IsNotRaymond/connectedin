@@ -6,5 +6,14 @@
 </head>
 <body>
     <h1>Bem vindo ao ConnectedIn</h1>
+    {% if perfis %}
+        {% for perfil in perfis %}
+            <ul>
+                <li><a href={% url 'exibir-perfil' perfil.id %}>{{ perfil.nome }}</a> // {{ perfil.email }}</li>
+            </ul>
+        {% endfor %}
+    {% else %}
+        <p>Não há perfis cadastrados no sistema!</p>
+    {% endif %}
 </body>
 </html>

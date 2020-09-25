@@ -10,6 +10,7 @@
         <p>Email: {{ perfil.email }}</p>
         <p>Telefone: {{ perfil.telefone }}</p>
         <p>Nome da empresa: {{ perfil.nome_empresa }}</p>
+        <a href="{% url 'convidar-perfil' perfil.id %}">Convidar</a>
     </body>
 
 </html>

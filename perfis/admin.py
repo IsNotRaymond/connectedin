@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Usuario, Perfil, Contato
+from .models import Perfil, Convite
 
-admin.site.register(Usuario)
 admin.site.register(Perfil)
-admin.site.register(Contato)
+admin.site.register(Convite)

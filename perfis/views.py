@@ -1,17 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Perfil
 
 
 def index(request):
-    return render(request, 'perfis/index.html')
+    return render(request, 'perfis/index.html', {'perfis': Perfil.objects.all()})
 
 
 def exibir(request, id_perfil):
-    perfil = Perfil()
+    return render(request, 'perfis/perfil.html', {'perfil': Perfil.objects.get(id=id_perfil)})
 
-    if id_perfil == 1:
-        perfil = Perfil(1, 'Elvis', 'elvis@gmail.com', '99999-9999', 'IFPI')
-    elif id_perfil == 2:
-        perfil = Perfil(2, 'Lucas', 'lucas@gmail.com', '98888-8888', 'UFPI')
 
-    return render(request, 'perfis/perfil.html', {'perfil': perfil})
+def convidar(request, id_perfil):
+    perfil_convite = Perfil.objects.get(id=id_perfil)
+    perfil_logado = get_perfil_logado(request)
+    perfil_logado.convidar(perfil_convite)
+
+    return redirect('index')
+
+
+def get_perfil_logado(request):
+    return Perfil.objects.get(id=1)

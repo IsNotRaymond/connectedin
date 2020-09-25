@@ -2,6 +2,7 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', index),
-    path('perfil/<int:id_perfil>', exibir),
+    path('', index, name='index'),
+    path('perfil/<int:id_perfil>', exibir, name='exibir-perfil'),
+    path('perfil/<int:id_perfil>/convidar', convidar, name='convidar-perfil')
 ]

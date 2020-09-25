@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'perfis.apps.PerfisConfig',
-    'postagem.apps.PostagemConfig',
-    'timeline.apps.TimelineConfig',
 ]
 
 MIDDLEWARE = [

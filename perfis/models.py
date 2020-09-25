@@ -1,31 +1,25 @@
 from django.db import models
 
 
-class Usuario(models.Model):
-    class Meta:
-        db_table = 'USUARIO'
-        verbose_name = 'usuario'
-        verbose_name_plural = 'usuarios'
-
-    email = models.EmailField()
-    senha = models.CharField(max_length=200)
-    data_nascimento = models.DateField()
-
-    def __str__(self):
-        return self.email
-
-    def __repr__(self):
-        self.__str__()
-
-
 class Perfil(models.Model):
     class Meta:
         db_table = 'PERFIL'
         verbose_name = 'perfil'
         verbose_name_plural = 'perfis'
 
-    nome = models.CharField(max_length=50)
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    nome = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    telefone = models.CharField(max_length=255)
+    nome_empresa = models.CharField(max_length=255)
+
+    def convidar(self, perfil_convidado):
+        if self.id == perfil_convidado.id:
+            return None
+
+        c = Convite(solicitante=self, convidado=perfil_convidado)
+        c.save()
+
+        return c
 
     def __str__(self):
         return self.nome
@@ -34,17 +28,17 @@ class Perfil(models.Model):
         self.__str__()
 
 
-class Contato(models.Model):
+class Convite(models.Model):
     class Meta:
-        db_table = 'CONTATO'
-        verbose_name = 'contato'
-        verbose_name_plural = 'contatos'
+        db_table = 'CONVITE'
+        verbose_name = 'convite'
+        verbose_name_plural = 'convites'
 
-    perfil_principal = models.ForeignKey(Perfil, on_delete=models.CASCADE, related_name='perfil_principal')
-    perfil_adicionado = models.ForeignKey(Perfil, on_delete=models.CASCADE, related_name='perfil_adicionado')
+    solicitante = models.ForeignKey(Perfil, on_delete=models.CASCADE, related_name='perfil_solicitante')
+    convidado = models.ForeignKey(Perfil, on_delete=models.CASCADE, related_name='perfil_convidado')
 
     def __str__(self):
-        return str(self.perfil_principal) + ' - ' + str(self.perfil_adicionado)
+        return str(self.solicitante) + ' - ' + str(self.convidado)
 
     def __repr__(self):
         self.__str__()
