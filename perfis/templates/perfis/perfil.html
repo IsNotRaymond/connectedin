@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <title>Perfil - {{ perfil.nome }}</title>
-    </head>
+{% extends "perfis/base.html" %}
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 style="margin-top:0">{{ perfil.nome }}</h2>
+            <address>
+                <strong>{{ perfil.nome_empresa }}</strong><br/>
+                <abbr title="Telefone">Tel:</abbr> {{ perfil.telefone }}<br/>
+                <a href="mailto:{{ perfil.email }}">{{ perfi.email }}</a>
+            </address>
 
-    <body>
-        <h1>Detalhes do perfil</h1>
-        <p>Nome: {{ perfil.nome }}</p>
-        <p>Email: {{ perfil.email }}</p>
-        <p>Telefone: {{ perfil.telefone }}</p>
-        <p>Nome da empresa: {{ perfil.nome_empresa }}</p>
-        <a href="{% url 'convidar-perfil' perfil.id %}">Convidar</a>
-    </body>
-
-</html>
+            {% if ja_eh_contato %}
+                <div class="well well-sm">Vocês estão conectados!</div>
+            {% else %}
+                <a href="{% url 'convidar-perfil' perfil.id %}" class="btn btn-success" role="button">Convidar</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

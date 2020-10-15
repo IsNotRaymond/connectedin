@@ -1,19 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ConnectedIn</title>
-</head>
-<body>
-    <h1>Bem vindo ao ConnectedIn</h1>
-    {% if perfis %}
-        {% for perfil in perfis %}
-            <ul>
-                <li><a href={% url 'exibir-perfil' perfil.id %}>{{ perfil.nome }}</a> // {{ perfil.email }}</li>
-            </ul>
-        {% endfor %}
-    {% else %}
-        <p>Não há perfis cadastrados no sistema!</p>
-    {% endif %}
-</body>
-</html>
+{% extends "perfis/base.html" %}
+{% block body %}
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <strong>Todos os Perfis</strong>
+            </div>
+            {% if perfis %}
+                <ul>
+                    {% for perfil in perfis %}
+                        <li>
+                            <a href="{% url 'exibir-perfil' perfil.id %}">{{ perfil.nome }}</a> / {{ perfil.email }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Nenhum perfil encontrado</p>
+            {% endif %}
+        </div>
+
+        <div class="panel panel-default">
+            {% if perfil_logado.convites_recebidos.count %}
+                <div class="panel-heading">
+                    <strong>Você tem {{ perfil_logado.convites_recebidos.count }}
+                        convite{{ perfil_logado.convites_recebidos.count|pluralize }} aguardando aprovação</strong>
+                </div>
+                <ul class="list-group">
+                    {% for convite in perfil_logado.convites_recebidos.all %}
+                        <li class="list-group-item">
+                            {{ convite.solicitante.nome }}
+                            <a href="{% url 'aceitar-convite' convite.id %}" class="pull-right">Aceitar</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="panel-body">
+                    <p>Nenhum Convite recebido</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="panel panel-default">
+            {% with total_contatos=perfil_logado.contatos.count %}
+                {% if total_contatos %}
+                    <div class="panel-heading">
+                        <strong>Você tem {{ total_contatos }}
+                            contato{{ total_contatos|pluralize }} aguardando aprovação</strong>
+                    </div>
+                    <ul class="list-group">
+                        {% for contato in perfil_logado.contatos.all %}
+                            <a href="{% url 'exibir-perfil' contato.id %}" class="list-group-item">
+                                {{ contato.nome }} / {{ contato.email }}</a>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <div class="panel-body">
+                        <p>Você não possui contatos no momento</p>
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+{% endblock %}
