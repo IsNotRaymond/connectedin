@@ -1,0 +1,14 @@
+{% extends "base_postagem.html" %}
+
+{% block body %}
+    <h3 class="page-header">Título: {{ postagem.nome_postagem }}</h3>
+    <p><strong>Conteúdo: </strong>{{ postagem.texto }}</p>
+    <p><strong>Criado Em: </strong> {{ postagem.data_de_criacao }}</p>
+    <p><strong>Autor: </strong>
+        {% if perfil_logado == postagem.perfil %}
+            Você
+        {% else %}
+            {{ postagem.perfil.nome }}
+        {% endif %}
+    </p>
+{% endblock %}

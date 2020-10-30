@@ -1,0 +1,15 @@
+{% extends "base_postagem.html" %}
+
+{% block body %}
+    <h1 class="text-center">Timeline</h1>
+
+    {% for postagem in postagens %}
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <a href="{% url 'exibir-postagem' postagem.id %}">{{ postagem.nome_postagem }}</a>
+                <span class="badge badge-primary badge-pill">{{ postagem.data_de_criacao }}</span>
+            </li>
+        </ul>
+    {% endfor %}
+
+{% endblock %}

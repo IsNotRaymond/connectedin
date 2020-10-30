@@ -1,0 +1,22 @@
+{% extends "base_postagem.html" %}
+
+{% block body %}
+	<form action="{% url 'criar-postagem' %}" class="form-group" role="form" method="post">
+		{% csrf_token %}
+		<h2 class="text-center">Criar Postagem</h2>
+        <div class="form-group">
+            <label for="id_nome_postagem">Título da Postagem</label>
+            <input type="text" class="form-control" id="id_nome_postagem" name="nome_postagem" placeholder="Título" required autofocus>
+        </div>
+
+        <div class="form-group">
+            <label for="id_texto">Conteúdo da Postagem</label>
+            <textarea class="form-control" id="id_texto" rows="3" name="texto" placeholder="Conteúdo" required></textarea>
+        </div>
+
+		<button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">Criar</button>
+
+		<input type="hidden" name="next" value="{{ next }}">
+	</form>
+
+{% endblock %}
