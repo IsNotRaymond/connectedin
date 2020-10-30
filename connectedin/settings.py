@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'perfis.apps.PerfisConfig',
     'usuarios.apps.UsuariosConfig',
+    'timeline.apps.TimelineConfig',
 ]
 
 MIDDLEWARE = [

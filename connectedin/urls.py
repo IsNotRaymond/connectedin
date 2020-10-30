@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path, include
 from perfis import urls as urls_perfis
 from usuarios import urls as urls_usuarios
+from timeline import urls as urls_timeline
 
 urlpatterns = [
     path('', include(urls_usuarios)),
     path('', include(urls_perfis)),
+    path('', include(urls_timeline)),
     path('admin/', admin.site.urls),
 ]
